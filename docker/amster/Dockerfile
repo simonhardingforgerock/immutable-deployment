@@ -13,7 +13,8 @@ COPY amster/*.sh /opt/amster/
 COPY amster/config /opt/amster/config
 COPY amster/scripts /opt/amster/scripts
 
-RUN curl https://stash.forgerock.org/projects/COM/repos/amadminpwdgen/raw/out/artifacts/amadminpwdgen_jar/amadminpwdgen.jar?at=refs%2Fheads%2Fmaster --output /opt/amster/amadminpwdgen.jar
+RUN curl https://stash.forgerock.org/projects/COM/repos/amadminpwdgen/raw/out/artifacts/amadminpwdgen_jar/amadminpwdgen.jar?at=refs%2Fheads%2Fmaster --output /opt/amster/amadminpwdgen.jar && \
+    apt-get install --no-install-recommends -y netcat
 
 WORKDIR /opt/amster
 USER forgerock

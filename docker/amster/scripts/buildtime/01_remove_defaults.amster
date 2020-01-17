@@ -1,0 +1,5 @@
+connect https://openam:8443 -k /var/run/secrets/amster/id_rsa
+delete LdapModule --realm / --id LDAP
+delete HotpModule --realm / --id HOTP
+delete SaeModule --realm / --id SAE
+delete OathModule --realm / --id OATH

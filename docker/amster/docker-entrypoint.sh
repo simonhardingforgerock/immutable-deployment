@@ -1,26 +1,18 @@
-#!/usr/bin/env bash
-#
-# Copyright (c) 2016-2017 ForgeRock AS. All rights reserved.
-#
+#!/bin/bash
+
+set -eup pipefail
 
 DS_INSTANCES="fr-ds-ctsstore-0.fr-ds-ctsstore:1389/fr-ds-ctsstore-1.fr-ds-ctsstore:1389"
 DS_INSTANCES="${DS_INSTANCES} fr-ds-dynamic-configstore-0.fr-ds-dynamic-configstore:1389/fr-ds-dynamic-configstore-1.fr-ds-dynamic-configstore:1389"
 
-
-
 trap exit_script SIGINT SIGTERM SIGUSR1 EXIT
 
-
-
-pause() {
-    echo "Args are $# "
-
-    echo "Container will now pause. You can use kubectl exec to run export.sh"
-    # Sleep forever, waiting for someone to exec into the container.
-    while true
-    do
-        sleep 1000000 & wait
-    done
+exit_script() {
+    echo "Got signal. Killing child processes"
+    trap - SIGINT SIGTERM # clear the trap
+    kill -- -$$ # Sends SIGTERM to child/sub processes
+    echo "Exiting"
+    exit 0
 }
 
 configure () {

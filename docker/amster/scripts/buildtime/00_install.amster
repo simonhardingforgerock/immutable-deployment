@@ -1,0 +1,33 @@
+ENV=System.getenv()
+AMADMIN_PASS = ENV.AMADMIN_PASS
+CFGDIR_PASS = ENV.CFGDIR_PASS
+USRDIR_USER = ENV.USRDIR_USER
+USRDIR_PASS = ENV.USRDIR_PASS
+AM_POLICY_AGENT_PASS = ENV.AM_POLICY_AGENT_PASS
+AM_ENC_KEY = ENV.AM_ENC_KEY
+FR_DOMAIN = ENV.FR_DOMAIN
+LB_URL = "https://am." + FR_DOMAIN
+
+install-openam \
+--serverUrl http://openam:8080/ \
+--authorizedKey  /var/run/secrets/amster/id_rsa.pub \
+--cookieDomain FR_DOMAIN \
+--adminPwd AMADMIN_PASS \
+--cfgStore dirServer \
+--cfgStoreHost 127.0.0.1 \
+--cfgStoreDirMgrPwd CFGDIR_PASS \
+--cfgStorePort 2389 \
+--cfgStoreRootSuffix ou=am-config \
+--policyAgentPwd AM_POLICY_AGENT_PASS  \
+--pwdEncKey AM_ENC_KEY \
+--userStoreDirMgr USRDIR_USER \
+--userStoreDirMgrPwd  USRDIR_PASS \
+--userStoreHost userstore-0.userstore \
+--userStorePort 1389 \
+--userStoreRootSuffix ou=identities \
+--userStoreType LDAPv3ForOpenDS \
+--acceptLicense \
+--lbSiteName site1 \
+--lbPrimaryUrl LB_URL \
+--cfgDir /home/forgerock/openam
+:exit

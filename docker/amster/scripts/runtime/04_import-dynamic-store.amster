@@ -1,0 +1,8 @@
+connect https://openam:8443 -k /var/run/secrets/amster/id_rsa
+import-config --path "/git/config/dynamic-datastore/OB OAuth2 Client Store.json"
+sleep(5000)
+import-config --path "/git/config/dynamic-datastore/DataStoreService.json"
+import-config --path /git/config/default/am/obri-650/realms/root-openbanking/SoftwarePublisher/
+import-config --path /git/config/default/am/obri-650/realms/root-openbanking/RemoteConsentAgent/
+import-config --path /git/config/default/am/obri-650/realms/root-openbanking/OAuth2Clients/
+:exit
